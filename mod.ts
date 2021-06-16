@@ -177,7 +177,6 @@ export class XMLHttpRequest
   send(body?: BodyInit | null): void {
     const controller = new AbortController();
     const draft = this.#state.draft!;
-
     const timeoutId = setTimeout(() => {
       controller.abort();
       // deno-lint-ignore no-explicit-any
@@ -187,7 +186,7 @@ export class XMLHttpRequest
     fetch(draft.url, {
       ...draft,
       body,
-      signal: controller.signal,
+      signal: this.timeout > 0 ? controller.signal : undefined,
     })
       .then((res) => {
         clearTimeout(timeoutId);
