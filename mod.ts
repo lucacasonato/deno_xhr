@@ -45,7 +45,7 @@ export class XMLHttpRequest
     readyState: this.UNSENT,
   };
 
-  #setReadyState = (newState: number): void => {
+  #setReadyState(newState: number): void {
     this.#state.readyState = newState;
 
     // this technically shouldn't happen in our code but the spec is pretty
@@ -54,7 +54,7 @@ export class XMLHttpRequest
     if (newState === 0) return;
     // deno-lint-ignore no-explicit-any
     (this as any).onreadystatechange?.();
-  };
+  }
 
   // it's supposed to be here
   onreadystatechange: XMLHttpRequestSpec["onreadystatechange"] = null;
